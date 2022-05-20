@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 
 const Form = ({ text }) => {
   const [username, setUsername] = useState('')
@@ -7,13 +8,44 @@ const Form = ({ text }) => {
 
   useEffect(() => {
   	// console.log(username, password, selectInput)	
-  }, [username, password, selectInput])
+    // getData()
+  }, [])
 
-  const handleSubmit = e => {
+  // const getData = async () => {
+  //   // const { data } = await axios.get('https://jsonplaceholder.typicode.com/todos') 
+  //   // console.log(data)
+  //   // fetch('https://jsonplaceholder.typicode.com/todos')
+  //   //   .then(response => response.json())
+  //   //   .then(json => console.log(json))
+  // }
+
+  const handleSubmit = async e => {
     // logic for form submission
     e.preventDefault()
-    console.log('form submit!')
-    console.log(username, password, selectInput)
+    // console.log('form submit!')
+    // console.log(username, password, selectInput)
+
+    const body = {
+      testData: 5
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    // await axios.post('https://jsonplaceholder.typicode.com/todos', body, config)
+  
+    fetch('https://jsonplaceholder.typicode.com/todos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(response => response.json())
+    .then(json => console.log(json))
   }
 
   return (
